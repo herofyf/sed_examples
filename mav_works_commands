@@ -1,0 +1,176 @@
+tcpdump tcp -i eth1 -s 0 -U dst port ! 22 and src net 192.168.1.0/24 -w ./target.cap
+
+(1)tcp: ip icmp arp rarp 和 tcp、udp、icmp这些选项等都要放到第一个参数的位置，用来过滤数据报的类型
+(2)-i eth1 : 只抓经过接口eth1的包, any for all of interfaces
+(3)-t : 不显示时间戳
+(4)-s 0 : 抓取数据包时默认抓取长度为68字节。加上-S 0 后可以抓到完整的数据包
+(5)-c 100 : 只抓取100个数据包
+(6)dst port ! 22 : 不抓取目标端口是22的数据包
+(7)src net 192.168.1.0/24 : 数据包的源网络地址为192.168.1.0/24
+(8)-w ./target.cap : 保存成cap文件，方便用ethereal(即wireshark)分析
+
+
+4.5 的view 在10.2.1.11 /home/szhao/C45
+[2/13/2015 9:55:25 AM] shutao zhao: szhao/ShZh001!
+
+land.fang 651236
+
+
+mavenir61619282
+
+或者mavenir2013
+[3:25:16 PM] Hongyu Fan: mavenir61619282
+
+   
+ip addr help
+sudo ip addr del 192.168.50.5/24 dev eth1    24: 子网mask 当中1的位数
+
+sudo ip link set eth1 up   
+ip route add 192.168.1.0/24 dev eth0
+/etc/sysconfig/network-scripts/route-interface 
+
+ /etc/sysconfig/network-scripts
+ 
+ systemctl restart network.service 
+ 
+
+ 
+ wget ‐‐server-response ‐‐spider http://www.labnol.org
+ 
+ wget ‐‐http-user=labnol ‐‐http-password=hello123 http://example.com/secret/file.zip
+ 
+ wget -r --no-parent http://mysite.com/configs/.vim/: download all of files recursively exception the .. file
+ 
+ •	data/media/slowpath/mppMgr/src/srtpadaptor.cpp (1.13.8.8.4.2)
+ 1.replace ' •	'
+ 2.replace ' \(.*\)' =''
+ 
+ 
+ 
+ 
+1>>>release product code review -------------
+ 
+ find ./UAG-P_4_0_7_30/rhel_6_2/data/media/slowpath/ -type f ! -name '*.o'
+ 
+ **Don't add / after dir. because it's file name pattern, not path
+ tar  -cJvf ~/rhel_6_2_UAG-P_4_0_7_30.xz  --exclude='*.o' --exclude='*.gz' --exclude="./dir" ./UAG-P_4_0_7_30/rhel_6_2/data/media/slowpath/
+ 
+
+ tar -xJvf rhel_6_2_UAG-P_4_0_7_30.xz --same-owner // if want to keep origin owner 
+
+ 
+ find . -printf '%s %p\n'| sort -nr | head -10
+
+ netstat -tapen | grep ssh
+ 
+1>>>trouble shooting-------------
+ 
+ 
+2>>>bash ref shortcut-----------------------------
+ Ctrl-U is recallable with Ctrl-Y
+ctrl+U is delete all before Cursor, ctrl+K is delete all after Cursor, ctrl+A is to go to the beginning of the line, ctrl + e to end
+
+find . -type f -exec cvs add {} \;
+
+sed -i -n "/mpp-/p" UAG.03301501.log
+
+sed -i -n -e '/++++++++++++++++++recv msg/d' -e '/= SetTimer/d' -e "/mpp-/p"  UAG.03301501.log
+
+sed -n -e '/++++++++++++++++++recv msg/d' -e '/= SetTimer/d' -e "/mpp-/p"  -e "/XCoderAgent-/p"  -e "/XCoderAgentMgr-/p" -e "/<:R6-/p"  UAG.03301501.log>mpp.log
+sed -n -e '/++++++++++++++++++recv msg/d' -e '/= SetTimer/d' -e "/mpp-/p"  -e "/XCoderAgent-/p"  -e "/XCoderAgentMgr-/p"
+sed -n  -e '/= SetTimer/d' -e "/mpp-/p"  -e "/XCoderAgent-/p"  -e "/XCoderAgentMgr-/p" UAG.03301501.log>mpp.log
+tail -f fp_log | grep "ssrc changed: " | grep -v ffffffff
+
+
+to filter sip message:
+sed -n -e '/onReadData/,/^$/p' -e '/readData/,/^$/p'  -e '/sendData/,/^$/p'  -e '/DBG.*send(s/,/^$/p' test.05021202_all.log > sip.log
+
+(add seperator line, to use -i update file directly, but no -n, not print pattern space, 5space): sed -i  '/></i\     ' sip.log
+
+
+
+2>>>bash ref shortcut---------------------
+ 
+3>>>system tool
+http://linuxtools-rst.readthedocs.org/zh_CN/latest/tool/ps.html
+
+ps -L -o stat,euid,ruid,tty,tpgid,sess,pgrp,ppid,pid,pcpu,comm  20222
+3>>>
+ rm `ls|grep -v 'ch.tgz'`
+ 
+ find -t type 如果某个目录是symbol 目录，则不会到这个目录中找匹配条件的；
+ find -L . 会到symbol directory目录中找, -H是不会，
+ 
+ 
+4>>>
+vim: ctrl + o is back update, ctrl +i :is forward. ctrl + r: redo, u: is undo
+ 
+
+5>>>
+	grep default not to recursive, -r to recursive, -w is for matching whole word
+	1、或操作
+	grep -l -e '123' -e 'abc' /usr/include/*.h
+	grep -E '123|abc' filename  // 找出文件（filename）中包含123或者包含abc的行
+        
+	2、与操作
+	grep pattern1 files | grep pattern2 ：显示既匹配 pattern1 又匹配 pattern2 的行。
+
+	3、其他操作
+
+		grep -i pattern files ：不区分大小写地搜索。默认情况区分大小写，
+		grep -l pattern files ：只列出匹配的文件名，
+		grep -L pattern files ：列出不匹配的文件名，
+		grep -w pattern files ：只匹配整个单词，而不是字符串的一部分（如匹配‘magic’，而不是‘magical’），
+		grep -C number pattern files ：匹配的上下文分别显示[number]行，
+		grep -b   
+		grep的A(after，后)选项和B(before，前): grep -B1 -A2 "DMA" message.txt  前面1行，后面2行
+6>>>
+	tar -tvf test.xz    // list all of files in this tar file
+	
+	tar -xkJvf test.xz   // not replace existing files, or to use  --skip-old-files skip them
+	
+	find ./test -name 'x' -o -name 'y'|xargs tar -cJvf test.xz                 // xargs将前面的参数结果按\n，空格作分隔，将各部分作为参数一次传给xargs后面的命令
+	
+	find ./test -print0 -name 'x' -o -name 'y'                                 //查找文件名为x, y的文件，并且将文件名以'\0'进行组string, 而-print是与'\n', 注意print0的位置在匹配前面
+	find . -print0 -type f  | xargs tar -czvf backup.tar.gz --null             // 因为加了--null,其会用这个-null来分隔参数内容
+
+	find . -type t -mtime -1                               // mtime is for hour, mmin is for minute. negative means ago
+	find . -type f -name "*.o" -exec rm -f {} \;
+6>>>>
+	awk -F: '{print $1 " " $2}' x|awk '{ if ($2 > 50) print $2}'
+
+	notepad++: to use ERE:( ) | { }如果要表示regular express,字符本身只需要加\
+	<mpp-1-\(12\)-12>(\|\w+\|)create
+
+7>>>>>
+	目录下各种文件类型的数量统计
+      find . -type f|sed 's/.\+[\.\/]//'|sort|uniq -c
+   
+   sed 默认用的是BRE， 注：s/xx/yy/g 是最后的g表示对行中所有出现的
+   sed 默认用的是BRE， 注：s/xx/yy/g 是最后的g表示对行中所有出现的
+   
+8>>>>>
+
+*****************View “cvs diff” output in two columns with vim ***********************************
+\cvs -n diff -u legSession.cpp > ~diff.tmp; vim -O <(sed -r -e 's/^\+[^\+]+.*$//g;s/^\+$//g' ~diff.tmp) <(sed -r -e 's/^-[^-]+.*$//g;s/^-$//g' ~diff.tmp) +'set scb | set nowrap | wincmd w | set scb | set nowrap'
+
+\cvs -n diff -u > ~diff.tmp;      // Write CVS diff output in unified format (-u option) to temp file ~diff.tmp. '\' char prevent from taking alias of "cvs" command.
+
+(sed -r -e 's/^\+[^\+]+.*$//g;s/^\+$//g' ~diff.tmp)
+(sed -r -e 's/^-[^-]+.*$//g;s/^-$//g' ~diff.tmp)
+  - This commands output text from ~diff.tmp, replace lines beginning with '+' and '-' symbols with empty line.
+
+
+vim -O <(sed...) <(sed...) +'set scb | set nowrap | wincmd w | set scb | set nowrap'
+  - Open two windows (-O option) with sed's output in each. Command followed '+' set srollbind on and nowrap for first window, then switch to second window (with 'wincmd w') and do same things
+     < 表示从后面具有读属性的文件中读入
+	 () 此处加括号是表示将命令在子shell中执行，然后将结果读出"<"，否则bash就认为后在的命令就是文件的文件名
+
+*****************************************************************
+
+
+9>>>>>>>
+	ps H -C a.out -o 'pid tid cmd comm'
+	
+10>>>>>> about to use screen
+http://www.ibm.com/developerworks/cn/linux/l-cn-screen/
